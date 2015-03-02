@@ -31,7 +31,7 @@ class Choropleth extends Geomap
         if geomap.data_by_id[id]
             geomap.colorize(geomap.data_by_id[id][col])
         else
-            '#eeeeee'
+            '#fdfdfd'
 
 
     tooltip: (d)->
@@ -90,7 +90,7 @@ class Choropleth extends Geomap
             .attr('d', geomap.properties.path)
             .style('fill', (d)->
                 geomap.colorVal(d.id, geomap.properties.column))
-            .on('click', geomap.clicked.bind(geomap))
+            # .on('click', geomap.clicked.bind(geomap))
             .append('title')
                 .text((d)-> geomap.tooltip(d))
 
