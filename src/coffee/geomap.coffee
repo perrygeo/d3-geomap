@@ -8,6 +8,7 @@ class Geomap
             height: 500
 
             geofile: null
+            geodata: null
             postUpdate: null # function to run when update process is completed
             projection: d3.geo.naturalEarth
             rotate: [0, 0, 0]
@@ -107,12 +108,20 @@ class Geomap
         geomap.properties.path = d3.geo.path().projection(proj)
 
         # Load and render geo data.
-        d3.json geomap.properties.geofile, (error, geo)->
-            geomap.geo = geo
+
+        if geomap.properties.geofile
+            d3.json geomap.properties.geofile, (error, geo)->
+                geomap.geo = geo
+                geomap.selection.units = geomap.private.g
+                    .selectAll('path')
+                    .data(topojson.feature(geo, geo.objects[geomap.properties.units]).features)
+
+                geomap.update()
+        else
+            geomap.geo = geomap.properties.geodata
             geomap.selection.units = geomap.private.g
                 .selectAll('path')
-                .data(topojson.feature(geo, geo.objects[geomap.properties.units]).features)
-
+                .data(topojson.feature(geomap.properties.geodata, geomap.properties.geodata.objects[geomap.properties.units]).features)
             geomap.update()
 
 

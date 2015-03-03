@@ -96,7 +96,8 @@ gulp.task('watch', function() {
 });
 
 // Build files needed for distribution.
-gulp.task('dist', ['clean', 'data', 'scripts', 'styles', 'minify', 'vendor']);
+// MP: removed 'styles'
+gulp.task('dist', ['clean', 'data', 'scripts', 'minify', 'vendor']);
 
 // The default task (called when you run `gulp` from cli).
 gulp.task('default', ['dist', 'connect', 'watch']);
